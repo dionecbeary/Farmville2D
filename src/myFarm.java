@@ -3,8 +3,12 @@ public class myFarm {
         myFarm fruit = new  myFarm();
     }
     public myFarm(){
-        System.out.println("hello from my farm");
-        Plot P1 = new Plot();
-        P1.printPlot();
+        Plot [][] grid = new Plot [10][2];
+        for (int a = 0; a < grid.length; a++){
+            for (int b =0; b < grid[a].length; b++){
+                grid [a][b] = new Plot();
+                grid [a][b].printPlot();
+            }
+        }
     }
 }
