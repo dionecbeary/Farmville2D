@@ -43,7 +43,7 @@ public class myFarm {
         int sumOfCarrots = 0;
         for (int a = 0; a < grid.length; a++){
             for (int b =0; b < grid[a].length; b++){
-                if (grid[a][b].plantName == "carrots"){
+                if (grid[a][b].plantName.equals("carrots")){
                     sumOfCarrots += grid[a][b].numberOfPlant;
                 }
             }
@@ -272,6 +272,17 @@ public class myFarm {
             System.out.println("tomatoes");
         }
 
+    }
+    public void averageRows() {
+        //find the average number of plants for every row. place the average of every row into a new array
+        int[] rowAverages = new int[grid[a].length];
+        for (int a = 0; a < grid.length; a++){
+            int rowSum = 0;
+            for (int b =0; b < grid[a].length; b++){
+                rowSum += grid[a][b].numberOfPlant;
+            }
+            rowAverages[a] = rowSum / grid[a].length;
+        }
     }
 
 }
