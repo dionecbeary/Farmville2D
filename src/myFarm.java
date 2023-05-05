@@ -22,6 +22,9 @@ public class myFarm {
         plantWithMinNumber();
         greaterThan50();
         plantWithMaxNumberNeedsWater();
+        averageRows();
+        averageColums();
+        updateNeedsWater();
     }
     public void totalPlants(){
         int sumOfPlants = 0;
@@ -275,14 +278,71 @@ public class myFarm {
     }
     public void averageRows() {
         //find the average number of plants for every row. place the average of every row into a new array
-        int[] rowAverages = new int[grid[a].length];
-        for (int a = 0; a < grid.length; a++){
+        int[] rowAverages = new int[grid.length];
+        for (int y = 0; y < grid.length; y++){
             int rowSum = 0;
-            for (int b =0; b < grid[a].length; b++){
-                rowSum += grid[a][b].numberOfPlant;
+            for (int x =0; x < grid[y].length; x++){
+                rowSum += grid[y][x].numberOfPlant;
             }
-            rowAverages[a] = rowSum / grid[a].length;
+            rowAverages[y] = rowSum / grid[y].length;
+        }
+        for (int n = 0; n < rowAverages.length; n++){
+            System.out.println("Row " + (n+1) + "'s average number of plants is " + rowAverages[n]);
         }
     }
+    public void averageColums() {
+        //find the average number of plants for every col. place the average of every column into a new array
+        int[] columnAverages = new int[grid[0].length];
+        for (int x =0; x < grid[x].length; x++){
+            int columnSum = 0;
+            for (int y = 0; y < grid.length; y++){
+                columnSum += grid[y][x].numberOfPlant;
+            }
+            columnAverages[x] = columnSum / grid[x].length;
+        }
+        for (int n = 0; n < columnAverages.length; n++){
+            System.out.println("Column " + (n+1) + "'s average number of plants is " + columnAverages[n]);
+        }
+    }
+    public void updateNeedsWater() {
+        //if 2 or more of the adjacent plots need water (left, right, up, down) make the current plot needs water to be true
+        for (int a = 0; a < grid.length; a++){
+            for (int b =0; b < grid[a].length; b++){
+                int adjPlotsNeedingWater = 0;
+                if (grid[a][b].needsWater == false){
+                    if (grid[a-1][b].needsWater == true){
+                        adjPlotsNeedingWater+=1;
+                    }
+                    if (grid[a+1][b].needsWater == true){
+                        adjPlotsNeedingWater+=1;
+                    }
+                    if (grid[a][b-1].needsWater == true){
+                        adjPlotsNeedingWater+=1;
+                    }
+                    if (grid[a][b+1].needsWater == true){
+                        adjPlotsNeedingWater+=1;
+                    }
+                    if (adjPlotsNeedingWater >= 2){
+                        grid[a][b].needsWater = true;
+                    }
+                }
+            }
+        }
+    }
+    public void updateNumberOfPlants() {
+        //change the value of number of plants so it is the average of the 8 surrounding plots (top, bottom, left, right, top-right, top-left, bottom-left, bottom-right)
+        for (int a = 0; a < grid.length; a++){
+            for (int b =0; b < grid[a].length; b++){
+                grid[a][b].numberOfPlant = (grid[a-1][b-1].numberOfPlant + grid[a][b-1].numberOfPlant + grid[a+1][b-1].numberOfPlant + grid[a-1][b].numberOfPlant + grid[a+1][b].numberOfPlant + grid[a-1][b+1].numberOfPlant + grid[a][b+1].numberOfPlant + grid[a+1][b+1].numberOfPlant)/8;
+            }
+        }
+        for (int a = 0; a < grid.length; a++){
+            System.out.println("Row "+a+": ");
+            for (int b =0; b < grid[a].length; b++){
+                System.out.print(grid[a][b].numberOfPlant + " ");
+            }
+        }
+    }
+
 
 }
