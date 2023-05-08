@@ -18,13 +18,14 @@ public class myFarm {
         numberOfTomatoPlots();
         numberOfEmptyPlots();
         everyOtherNeedsWater();
+        plotWithMaxNumber();
         plantWithMaxNumber();
         plantWithMinNumber();
         greaterThan50();
         plantWithMaxNumberNeedsWater();
         averageRows();
         averageColums();
-        updateNeedsWater();
+//        updateNeedsWater();
     }
     public void totalPlants(){
         int sumOfPlants = 0;
@@ -107,6 +108,19 @@ public class myFarm {
             System.out.println();
         }
     }
+    public void plotWithMaxNumber(){
+        int maxNumber = grid[0][0].numberOfPlant;
+        String name = grid[0][0].plantName;
+        for(int b = 0; b<grid[b].length; b++){
+            for(int g = 0; g<grid[b].length; g++){
+                if (grid[b][g].numberOfPlant > maxNumber){
+                    maxNumber = grid[b][g].numberOfPlant;
+                    name = grid[b][g].plantName;
+                }
+            }
+        }
+        System.out.println("The plot with the most plants is a "+name+" plot with a number of "+maxNumber);
+    }
     public void plantWithMaxNumber() {
         // which plant type has the most total plants?
         int carrots = 0;
@@ -116,20 +130,19 @@ public class myFarm {
         int empty = 0;
         for (int a = 0; a < grid.length; a++){
             for (int b =0; b < grid[a].length; b++){
-                if (grid[a][b].plantName == "carrots"){
-                    carrots += 1;
-                }
-                if (grid[a][b].plantName == "sunflowers"){
-                    sunflowers += 1;
-                }
-                if (grid[a][b].plantName == "corn"){
-                    corn += 1;
-                }
-                if (grid[a][b].plantName == "tomatoes"){
-                    tomatoes += 1;
-                }
-                if (grid[a][b].plantName == "empty"){
-                    empty += 1;
+                switch(grid[a][b].plantName){
+                    case "carrots":
+                        carrots += grid[a][b].numberOfPlant;
+                        break;
+                    case "sunflowers":
+                        sunflowers += grid[a][b].numberOfPlant;
+                        break;
+                    case "corn":
+                        corn += grid[a][b].numberOfPlant;
+                        break;
+                    case "tomatoes":
+                        tomatoes += grid[a][b].numberOfPlant;
+                        break;
                 }
             }
         }
@@ -329,20 +342,20 @@ public class myFarm {
             }
         }
     }
-    public void updateNumberOfPlants() {
-        //change the value of number of plants so it is the average of the 8 surrounding plots (top, bottom, left, right, top-right, top-left, bottom-left, bottom-right)
-        for (int a = 0; a < grid.length; a++){
-            for (int b =0; b < grid[a].length; b++){
-                grid[a][b].numberOfPlant = (grid[a-1][b-1].numberOfPlant + grid[a][b-1].numberOfPlant + grid[a+1][b-1].numberOfPlant + grid[a-1][b].numberOfPlant + grid[a+1][b].numberOfPlant + grid[a-1][b+1].numberOfPlant + grid[a][b+1].numberOfPlant + grid[a+1][b+1].numberOfPlant)/8;
-            }
-        }
-        for (int a = 0; a < grid.length; a++){
-            System.out.println("Row "+a+": ");
-            for (int b =0; b < grid[a].length; b++){
-                System.out.print(grid[a][b].numberOfPlant + " ");
-            }
-        }
-    }
+//    public void updateNumberOfPlants() {
+//        //change the value of number of plants so it is the average of the 8 surrounding plots (top, bottom, left, right, top-right, top-left, bottom-left, bottom-right)
+//        for (int a = 0; a < grid.length; a++){
+//            for (int b =0; b < grid[a].length; b++){
+//                grid[a][b].numberOfPlant = (grid[a-1][b-1].numberOfPlant + grid[a][b-1].numberOfPlant + grid[a+1][b-1].numberOfPlant + grid[a-1][b].numberOfPlant + grid[a+1][b].numberOfPlant + grid[a-1][b+1].numberOfPlant + grid[a][b+1].numberOfPlant + grid[a+1][b+1].numberOfPlant)/8;
+//            }
+//        }
+//        for (int a = 0; a < grid.length; a++){
+//            System.out.println("Row "+a+": ");
+//            for (int b =0; b < grid[a].length; b++){
+//                System.out.print(grid[a][b].numberOfPlant + " ");
+//            }
+//        }
+//    }
 
 
 }
