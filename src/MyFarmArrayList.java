@@ -30,6 +30,11 @@ public class MyFarmArrayList {
         everyOtherNeedsWater();
         plantWithMaxNumber();
         plantWithMinNumber();
+        greaterThan10();
+        plantWithMaxNumberNeedsWater();
+        greatestDifferenceNumberBetweenAnyPlants();
+        numberOfCarrotPlotsNextToCorn();
+        removeFirstCarrot();
     }
 
     public void totalPlants() {
@@ -79,7 +84,6 @@ public class MyFarmArrayList {
          }
          System.out.println();
     }
-
     public void totalCarrots() {
         // how many total carrot plants are there?
         int totalCarrots = 0;
@@ -129,6 +133,7 @@ public class MyFarmArrayList {
             if (i%2 == 1){
                 row.get(i).needsWater = true;
             }
+//            System.out.println(row.get(i).needsWater);
         }
     }
 
@@ -201,12 +206,89 @@ public class MyFarmArrayList {
 
     public void greaterThan10() {
         // how many plots have more than 10 plants in the plot?
+        int moreThanTen = 0;
+        for(Plot i: row){
+            if(i.numberOfPlant > 10){
+                moreThanTen += 1;
+            }
+        }
+        System.out.println("The number of pots with more than 10 plants in the plot is "+moreThanTen);
     }
 
     public void plantWithMaxNumberNeedsWater(){
         // which plant type has the most total plants (not counting empty plots) that needs water?
-
+        int corn = 0;
+        int sunflowers = 0;
+        int carrots = 0;
+        int tomatoes = 0;
+        for(Plot i : row){
+            if (i.needsWater == true){
+                switch (i.plantName){
+                    case "corn":
+                        corn += i.numberOfPlant;
+                        break;
+                    case "sunflowers":
+                        sunflowers += i.numberOfPlant;
+                        break;
+                    case "carrots:":
+                        carrots += i.numberOfPlant;
+                        break;
+                    case "tomatoes":
+                        tomatoes += i.numberOfPlant;
+                        break;
+                }
+            }
+        }
+        if(corn>sunflowers && corn>carrots && corn>tomatoes){
+            System.out.println("The plant type carrots has the most total plants that need water." );
+        } else if (sunflowers>corn && sunflowers>carrots && sunflowers>tomatoes) {
+            System.out.println("The plant type sunflowers has the most total plants that need water." );
+        }else if (carrots>corn && carrots>sunflowers && carrots>tomatoes) {
+            System.out.println("The plant type carrots has the most total plants that need water." );
+        }else if (tomatoes>corn && tomatoes>carrots && tomatoes>sunflowers) {
+            System.out.println("The plant type sunflowers has the most total plants that need water." );
+        }
+    }
+    public void greatestDifferenceNumberBetweenAnyPlants() {
+        // of every pair of adjacent plots, which two have the greatest difference in plant numbers?
+        // what is that difference?
+        int greatestDiff = 0;
+        for(int n = 0; n < row.size()-1; n ++){
+            int diff = row.get(n+1).numberOfPlant - row.get(n).numberOfPlant;
+            if  (diff > greatestDiff){
+                greatestDiff = diff;
+            }
+        }
+        System.out.println("The greatest difference between any plants is "+greatestDiff);
     }
 
+    public void numberOfCarrotPlotsNextToCorn() {
+        // how many carrot plots share a border with a corn plot?
+        int sharedborders = 0;
+        for (int i = 0; i < row.size(); i ++){
+            if (row.get(i).plantName == "carrots"){
+                if(row.get(i-1).plantName == "corn" || row.get(i+1).plantName == "corn"){
+                    sharedborders += 1;
+                }
+            }
+        }
+        System.out.println("The number of carrot plots that share a border with a corn plot is " + sharedborders);
+    }
+
+    public void removeFirstCarrot() {
+        // remove the first carrot plot
+        // call printPlantNames() method before and after your removal to make sure it worked
+        boolean firstCarrotRemoved = false;
+        for (int i = 0; i < row.size(); i ++){
+            if(firstCarrotRemoved == false && row.get(i).plantName == "carrot"){
+                row.get(i).plantName = "empty";
+            }
+        }
+    }
+
+    public void removeAllEmpty() {
+        // remove all empty plots
+        // call printPlantNames() method before and after your removal to make sure it worked
+    }
 
 }
